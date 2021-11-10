@@ -1,6 +1,6 @@
 BIN:=app_logging
 CC:=gcc
-CPPFLAGS:=-I$(CURDIR) -w -fpic -shared
+CPPFLAGS:=-I$(CURDIR) -w -fpic -L./lib -llogging
 SRC:=$(wildcard *.c)
 OBJS:=$(SRC:.c=.o)
 

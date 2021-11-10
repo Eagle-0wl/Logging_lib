@@ -3,7 +3,7 @@
 #include <memory.h>
 #include <stdlib.h>
 #include <syslog.h>
-#include "./lib/log_lib.h"
+#include <log_lib.h>
 
 /* Usage text */
 void usage() {

@@ -21,37 +21,26 @@ endef
 define Build/Compile
 	mkdir -p $(PKG_BUILD_DIR)
 	mkdir -p $(PKG_BUILD_DIR)/lib
-	#mkdir -p $(PKG_BUILD_DIR)/src
 	cp $(SOURCE_DIR)/* $(PKG_BUILD_DIR)/lib
-	#cp ./src/* $(PKG_BUILD_DIR)/src
-	#$(Build/InstallDev)
+	cp $(SOURCE_DIR)/*.h $(PKG_BUILD_DIR)
 	$(MAKE) -C $(PKG_BUILD_DIR)/lib \
 		CC="$(TARGET_CC)"
 	$(MAKE) -C $(PKG_BUILD_DIR) \
 		CC="$(TARGET_CC)"
-
 endef
 
 define Build/InstallDev
-	
-	#$(INSTALL_DIR) $(1)/usr/lib $(1)/usr/include
-	#$(INSTALL_BIN) $(PKG_BUILD_DIR)/lib/liblogging.so $(1)/usr/lib/
-	#$(INSTALL_DATA) $(PKG_BUILD_DIR)/lib/log_lib.h $(1)/usr/include/
-	#$(MAKE) -C $(PKG_BUILD_DIR) all
-	#$(MAKE) -C ./lib all
+	$(INSTALL_DIR) $(1)/usr/include $(1)/usr/lib
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/lib/liblogging.so $(1)/usr/lib/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/lib/log_lib.h $(1)/usr/include
 endef
 
 define Package/liblogging/install
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_DIR) $(1)/usr/include
-	
-	$(INSTALL_DIR) $(1)/usr/lib
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/lib/log_lib.h $(1)/usr/include
+	$(INSTALL_DIR) $(1)/usr/bin $(1)/usr/lib
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/lib/liblogging.so $(1)/usr/lib
-	
-	
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/app_logging $(1)/usr/bin
 endef
+
 
 
 $(eval $(call BuildPackage,liblogging))
